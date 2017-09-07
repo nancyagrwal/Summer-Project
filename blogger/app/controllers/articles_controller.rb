@@ -23,6 +23,7 @@ def create
 #@article.title = params[:article][:title]
 #@article.body = params[:article][:body]
 
+# we are using the require and permit from ArticlesHelper here, so now can be used directly.
 @article = Article.new(article_params)
 @article.save
  flash.notice = "Article '#{@article.title}' Created!"
@@ -34,7 +35,7 @@ def destroy
 @article = Article.find(params[:id])
 @article.destroy
  flash.notice = "Article '#{@article.title}' Deleted!"
-redirect_to article_path(@article)
+redirect_to articles_path
 end
 
 def update
