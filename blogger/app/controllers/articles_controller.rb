@@ -10,6 +10,8 @@ end
 def show
 @article = Article.find(params[:id])
 @comment = Comment.new
+# to initialize the comments array in articles.
+#@comment = @article.comments.new
 @comment.article_id = @article.id
 end
 
