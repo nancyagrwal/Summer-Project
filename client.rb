@@ -6,6 +6,6 @@ port = 2000
 s = TCPSocket.open(hostname, port)
 
 while line = s.gets				# Read lines from socket
-	puts line.chop					# Print with platform line terminator
+	puts line.chop					
 end
-s.close										# Close socket
+s.close										
