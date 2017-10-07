@@ -1,5 +1,6 @@
 require "csv"
 require "sunlight/congress"
+template_letter = File.read "form_letter.html"
 
 Sunlight::Congress.api_key = "e179a6973728c4dd3fb1204283aaccb5"
 
@@ -44,8 +45,11 @@ contents.each do |row|
 	name = row[:first_name]
 	zipcode = clean_zipcode(row[:zipcode])
  	legislators_string = find_legislator_names(row[:zipcode])
+	personal_letter = template_letter.gsub('FISRT_NAME',name)
+	personal_letter.gsub!('LEGISLATORS', legislators_string)
 
-        puts "#{name} #{zipcode} #{legislators_string}"
+        #puts "#{name} #{zipcode} #{legislators_string}"
+	puts personal_letter
 	
 #lines = File.readlines "event_attendees.csv"
 #row_index = 0
