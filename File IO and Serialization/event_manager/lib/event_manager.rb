@@ -1,6 +1,8 @@
 require "csv"
 require "sunlight/congress"
+require "erb"
 template_letter = File.read "form_letter.html"
+template_letter2 = File.read "form_letter.erb"
 
 Sunlight::Congress.api_key = "e179a6973728c4dd3fb1204283aaccb5"
 
@@ -40,16 +42,20 @@ end
 
 	
 contents = CSV.read "event_attendees.csv" , headers: true, header_converters: :symbol
-
+erb_template = ERB.new template_letter2
 contents.each do |row|
 	name = row[:first_name]
 	zipcode = clean_zipcode(row[:zipcode])
  	legislators_string = find_legislator_names(row[:zipcode])
 	personal_letter = template_letter.gsub('FISRT_NAME',name)
 	personal_letter.gsub!('LEGISLATORS', legislators_string)
+#	puts personal_letter
+
+	form_letter = erb_template.result(binding)
+	puts form_letter
 
         #puts "#{name} #{zipcode} #{legislators_string}"
-	puts personal_letter
+	
 	
 #lines = File.readlines "event_attendees.csv"
 #row_index = 0
