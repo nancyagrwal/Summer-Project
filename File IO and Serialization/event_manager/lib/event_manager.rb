@@ -1,7 +1,7 @@
 require "csv"
 require "sunlight/congress"
 require "erb"
-template_letter = File.read "form_letter.html"
+#template_letter = File.read "form_letter.html"
 template_letter2 = File.read "form_letter.erb"
 
 Sunlight::Congress.api_key = "e179a6973728c4dd3fb1204283aaccb5"
@@ -41,18 +41,31 @@ def find_legislator_names(zipcode)
 end
 
 	
+def legislators_by_zipcode(zipcode)
+  Sunlight::Congress::Legislator.by_zipcode(zipcode)
+end
+
+
 contents = CSV.read "event_attendees.csv" , headers: true, header_converters: :symbol
 erb_template = ERB.new template_letter2
 contents.each do |row|
+	id = row[0]
 	name = row[:first_name]
 	zipcode = clean_zipcode(row[:zipcode])
- 	legislators_string = find_legislator_names(row[:zipcode])
-	personal_letter = template_letter.gsub('FISRT_NAME',name)
-	personal_letter.gsub!('LEGISLATORS', legislators_string)
-#	puts personal_letter
+ 	#legislators_string = find_legislator_names(row[:zipcode])
+	legislators_string = legislators_by_zipcode(zipcode)
+	#personal_letter = template_letter.gsub('FISRT_NAME',name)
+	#personal_letter.gsub!('LEGISLATORS', legislators_string)
+	#puts personal_letter
 
 	form_letter = erb_template.result(binding)
-	puts form_letter
+	#puts form_letter
+
+	Dir.mkdir("output") unless Dir.exists? "output"
+  	filename = "output/thanks_#{id}.html"
+	File.open(filename,'w') do |file|
+              file.puts form_letter
+ 	end
 
         #puts "#{name} #{zipcode} #{legislators_string}"
 	

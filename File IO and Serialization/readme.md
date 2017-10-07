@@ -1,7 +1,5 @@
 Serialization and Working with Files
 
-Project source: http://www.theodinproject.com/ruby-programming/file-i-o-and-serialization
-
 Event Manager
 
 

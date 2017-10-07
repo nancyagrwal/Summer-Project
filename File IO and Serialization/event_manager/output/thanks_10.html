@@ -4,7 +4,7 @@ form_letter = %{
     <title>Thank You!</title>
   </head>
   <body>
-    <h1>Thanks <%= name %></h1>
+    <h1>Thanks Eli</h1>
     <p>Thanks for coming to our conference.  We couldn't have done it without you!</p>
 
     <p>
@@ -13,12 +13,27 @@ form_letter = %{
     </p>
 	<table>
   <tr><th>Name</th><th>Website</th></tr>
-    <% legislators_string.each do |legislator| %>
+    
       <tr>
-        <td><%= "#{legislator.first_name} #{legislator.last_name}" %></td>
-        <td><%= "#{legislator.website}" %></td>
+        <td>Kamala Harris</td>
+        <td>https://www.harris.senate.gov</td>
       </tr>
-    <% end %>
+    
+      <tr>
+        <td>Scott Peters</td>
+        <td>https://scottpeters.house.gov</td>
+      </tr>
+    
+      <tr>
+        <td>Darrell Issa</td>
+        <td>https://issa.house.gov</td>
+      </tr>
+    
+      <tr>
+        <td>Dianne Feinstein</td>
+        <td>https://www.feinstein.senate.gov</td>
+      </tr>
+    
   </table>
 
    
